@@ -1,0 +1,46 @@
+
+Leds
+Sensores
+
+Detección de usuario:
+Sensor NFC para detectar usuario
+Dip switch para identificar el ID (PARA EMULAR EL ID POR SI NO ESTÁ EL NFC EN TINKERKAD)
+
+Para un cuarto
+
+Tabla Usuarios IDUsuario NOMBRE
+Tabla Dispositivos IDDispositivo NOMBRE WATTS
+Tabla Preferencias IDUsuariof IDAparatof Color IDAparato2f? VelocidadVentilador
+Tabla Cuartos IdCuarto cantPersonas  *Serviría para saber en tiempo real cuánta gente hay en un cuarto xd
+Tabla Registros IdRegistro IdCuartof* FechaON FechaOFF  *FALTA QUE TAMBIÉN TOME EN CUENTA DÍAS Y ASÍ XDDDD*
+*No se muestra en el dashboard según el día, así que se acumula*
+*Actualizar preferencias*
+*Un view para ver el gasto de cada dispositivo ya que solo presentaremos un cuarto*
+*Cambiar tabla registros a tiempo prendido*
+
+*Cuartos, cantPersonas
+*Preferencias, IDUsuario,color,velocidad
+*Cuartos, cambiar cantPersonas por IDUsuariof
+
+CREATE TABLE Cuartos (IDCuarto NUMBER PRIMARY KEY, IDUsuario NUMBER, FOREIGN KEY(IDUsuario) REFERENCES Usuarios(IDUsuario))
+
+
+Cuando salga:
+begin
+INSERT INTO Cuartos (IDCuartos, IDUsuariof) values (1,usuarioquemandemos) *INSERT PARA HACER EL VIEW
+INSERT INTO Preferencias (IDUsuario,IDDispositivo,color) values (IDquemandemos,1,colorquemandemos)
+INSERT INTO Preferencias (IDUsuario,IDDispositivo,velocidad) values (IDquemandemos,2,velocidadquemandemos)
+end
+
+Cuando salga:
+INSERT INTO Registros (IDRegistro,IDCuarto,fechaON,fechaOFF) values (sequencia,1,CURRENT_TIMESTAMP-tquemandemos,CURRENT_TIMESTAMP)
+
+MANDAMOS
+color
+velocidad
+usuario
+segundos
+
+TINKERCAD:
+*Toma en cuenta que no hay "errores" o sea que alguien pase cerca del sensor.
+*Eso quiere decir que suponemos que si el sensor detecta algo, de a fuerzas entra o sale una persona
